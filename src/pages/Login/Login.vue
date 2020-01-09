@@ -50,7 +50,7 @@ export default {
       if (res.meta.status !== 200) return this.$message.error("登录失败");
       this.$message.success("登录成功");
       window.sessionStorage.setItem("token", res.data.token);
-      this.$router.push("/");
+      this.$router.push("/home");
     },
      resetForm(formName) {
         this.$refs[formName].resetFields();

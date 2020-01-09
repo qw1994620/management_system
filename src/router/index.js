@@ -10,6 +10,10 @@ const router= new Router({
   routes: [
     {
       path: '/',
+      redirect: "/home"
+    },
+    {
+      path: '/home',
       name: 'Home',
       component: Home
     },
@@ -20,12 +24,23 @@ const router= new Router({
     },
     {
       path: '/*',
-      redirect: "Login"
+      redirect: "/login"
     }
   ]
 })
 
-
+router.beforeEach((to, from, next) => {
+  if (to.path == '/login') {
+    return next()
+  } else {
+    let tokens = window.sessionStorage.getItem('token')
+    if (!tokens) {
+      return next('/login')
+    } else {
+      next()
+    }
+  }
+})
 
 
 export default router
